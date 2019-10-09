@@ -1,0 +1,15 @@
+[package]
+name = "nonparallel"
+version = "0.1.0"
+authors = ["Danilo Bargen <mail@dbrgn.ch>"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "1", features = ["full"] }
+quote = "1"
+
+[dev-dependencies]
+lazy_static = "1"
