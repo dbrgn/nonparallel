@@ -64,7 +64,7 @@ pub fn nonparallel(attr: TokenStream, item: TokenStream) -> TokenStream {
     let mut function: ItemFn = parse(item).expect("Could not parse ItemFn");
 
     // Insert locking code
-    let quoted = quote! { let guard = #ident.lock(); };
+    let quoted = quote! { let guard = #ident.lock().expect("Could not lock mutex"); };
     let stmt: Stmt = parse(quoted.into()).expect("Could not parse quoted statement");
     function.block.stmts.insert(0, stmt);
 
