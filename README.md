@@ -1,6 +1,8 @@
 # nonparallel
 
 [![CircleCI][circle-ci-badge]][circle-ci]
+[![Crates.io Version][crates-io-badge]][crates-io]
+[![Crates.io Downloads][crates-io-download-badge]][crates-io-download]
 [![License][license-badge]][license]
 
 A procedural macro for Rust that allows you to ensure that functions are not
@@ -60,5 +62,9 @@ at your option.
 <!-- Badges -->
 [circle-ci]: https://circleci.com/gh/dbrgn/nonparallel/tree/master
 [circle-ci-badge]: https://circleci.com/gh/dbrgn/nonparallel/tree/master.svg?style=shield
+[crates-io]: https://crates.io/crates/nonparallel
+[crates-io-badge]: https://img.shields.io/crates/v/nonparallel.svg?maxAge=3600
+[crates-io-download]: https://crates.io/crates/nonparallel
+[crates-io-download-badge]: https://img.shields.io/crates/d/nonparallel.svg?maxAge=3600
 [license]: https://github.com/dbrgn/nonparallel#license
 [license-badge]: https://img.shields.io/badge/License-Apache%202.0%20%2f%20MIT-blue.svg
