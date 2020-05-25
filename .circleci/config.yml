@@ -44,7 +44,7 @@ jobs:
             - /usr/local/cargo
   audit:
     docker:
-      - image: rust:1.38
+      - image: rust:latest
     steps:
       - checkout
       - restore_cache:
