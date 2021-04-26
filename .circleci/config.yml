@@ -44,22 +44,15 @@ jobs:
             - /usr/local/cargo
   audit:
     docker:
-      - image: rust:latest
+      - image: dbrgn/cargo-audit:latest
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-cargo-audit-cache
       - run:
           name: Install dependencies
           command: apt update && apt install -y cmake
       - run:
-          name: Install and run cargo-audit
-          command: cargo install --force cargo-audit && cargo audit
-      - save_cache:
-          key: v1-cargo-audit-cache
-          paths:
-            - /usr/local/cargo
+          name: Run cargo-audit
+          command: cargo audit
 
 workflows:
   version: 2
