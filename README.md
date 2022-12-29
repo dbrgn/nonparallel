@@ -22,26 +22,25 @@ static mutex reference must be passed to the `nonparallel` annotation.
 
 ```rust
 use std::sync::Mutex;
-use lazy_static::lazy_static;
 use nonparallel::nonparallel;
 
 // Create two locks
-lazy_static! { static ref MUT_A: Mutex<()> = Mutex::new(()); }
-lazy_static! { static ref MUT_B: Mutex<()> = Mutex::new(()); }
+static MUT_A: Mutex<()> = Mutex::new(());
+static MUT_B: Mutex<()> = Mutex::new(());
 
 // Mutually exclude parallel runs of functions using those two locks
 
-#[nonparallel(MUT_A)]
+#[nonparallel(MUT_A.lock().unwrap())]
 fn function_a1() {
     // This will not run in parallel to function_a2
 }
 
-#[nonparallel(MUT_A)]
+#[nonparallel(MUT_A.lock().unwrap())]
 fn function_a2() {
     // This will not run in parallel to function_a1
 }
 
-#[nonparallel(MUT_B)]
+#[nonparallel(MUT_B.lock().unwrap())]
 fn function_b() {
     // This may run in parallel to function_a*
 }
