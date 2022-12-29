@@ -20,17 +20,17 @@
 //!
 //! // Mutually exclude parallel runs of functions using those two locks
 //!
-//! #[nonparallel(MUT_A)]
+//! #[nonparallel(MUT_A.lock().unwrap())]
 //! fn function_a1() {
 //!     // This will not run in parallel to function_a2
 //! }
 //!
-//! #[nonparallel(MUT_A)]
+//! #[nonparallel(MUT_A.lock().unwrap())]
 //! fn function_a2() {
 //!     // This will not run in parallel to function_a1
 //! }
 //!
-//! #[nonparallel(MUT_B)]
+//! #[nonparallel(MUT_B.lock().unwrap())]
 //! fn function_b() {
 //!     // This may run in parallel to function_a*
 //! }
@@ -41,30 +41,29 @@ extern crate proc_macro;
 use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
 use syn::parse::{Parse, ParseStream};
-use syn::{parse, parse_macro_input, Ident, Stmt, ItemFn};
+use syn::{parse, parse_macro_input, Expr, ItemFn, Stmt};
 
-#[derive(Debug)]
 struct Nonparallel {
-    ident: Ident,
+    expr: Expr,
 }
 
 impl Parse for Nonparallel {
     fn parse(input: ParseStream) -> Result<Self, syn::Error> {
-        let ident = input.parse::<Ident>()?;
-        Ok(Nonparallel { ident })
+        let expr = input.parse::<Expr>()?;
+        Ok(Nonparallel { expr })
     }
 }
 
 #[proc_macro_attribute]
 pub fn nonparallel(attr: TokenStream, item: TokenStream) -> TokenStream {
     // Parse macro attributes
-    let Nonparallel { ident } = parse_macro_input!(attr);
+    let Nonparallel { expr } = parse_macro_input!(attr);
 
     // Parse function
     let mut function: ItemFn = parse(item).expect("Could not parse ItemFn");
 
     // Insert locking code
-    let quoted = quote! { let guard = #ident.lock().expect("Could not lock mutex"); };
+    let quoted = quote! { let guard = #expr; };
     let stmt: Stmt = parse(quoted.into()).expect("Could not parse quoted statement");
     function.block.stmts.insert(0, stmt);
 
