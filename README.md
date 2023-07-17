@@ -5,6 +5,10 @@
 [![Crates.io Downloads][crates-io-download-badge]][crates-io-download]
 [![License][license-badge]][license]
 
+> :warning: **Note:** This crate is deprecated and unmaintained. You should use
+> [`serial_test`](https://github.com/palfrey/serial_test/) instead, which is
+> more powerful than `nonparallel`.
+
 A procedural macro for Rust that allows you to ensure that functions are not
 running at the same time. This is especially useful for integration tests,
 where tests that are writing to the same database table should not run in

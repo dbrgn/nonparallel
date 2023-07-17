@@ -1,11 +1,11 @@
 [package]
 name = "nonparallel"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Danilo Bargen <mail@dbrgn.ch>"]
 documentation = "https://docs.rs/nonparallel/"
 repository = "https://github.com/dbrgn/nonparallel/"
 license = "MIT OR Apache-2.0"
-description = "Rust macro for ensuring non-parallel execution of functions."
+description = "Rust macro for ensuring non-parallel execution of functions. (Deprecated, use `serial_test` instead.)"
 readme = "README.md"
 keywords = ["parallel", "concurrent", "lock", "macro", "testing"]
 include = [
@@ -17,6 +17,7 @@ include = [
     "LICENSE-APACHE",
 ]
 edition = "2018"
+maintenance = { status = "deprecated" }
 
 [lib]
 proc-macro = true
